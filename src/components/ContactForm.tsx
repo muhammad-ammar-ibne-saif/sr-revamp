@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { z } from "zod";
+import emailjs from "@emailjs/browser";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,6 +19,10 @@ const schema = z.object({
 });
 
 interface Props { defaultService?: string; compact?: boolean; }
+
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID as string;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string;
 
 export const ContactForm = ({ defaultService, compact }: Props) => {
   const { toast } = useToast();
@@ -38,21 +43,28 @@ export const ContactForm = ({ defaultService, compact }: Props) => {
       return;
     }
     setSubmitting(true);
-try {
-  const res = await fetch("http://localhost:4000/api/contact", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(values),
-  });
-  if (!res.ok) throw new Error("Send failed");
-  setSent(true);
-  toast({ title: "Message sent", description: "We reply within one working day." });
-} catch {
-  toast({ title: "Something went wrong", description: "Please try again or WhatsApp us.", variant: "destructive" });
-} finally {
-  setSubmitting(false);
-}
-}
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          form_type: "Contact Form",
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          service: values.service,
+          message: values.message,
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY }
+      );
+      setSent(true);
+      toast({ title: "Message sent", description: "We reply within one working day." });
+    } catch {
+      toast({ title: "Something went wrong", description: "Please try again or WhatsApp us.", variant: "destructive" });
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   if (sent) {
     return (

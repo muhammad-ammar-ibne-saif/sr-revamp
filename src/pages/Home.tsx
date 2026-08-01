@@ -10,6 +10,7 @@ import {
   INDUSTRY_CATEGORIES,
   VIDEO_TESTIMONIALS,
 } from "@/config/site";
+import { GoogleReviews } from "@/components/GoogleReviews";
 
 const Icon = ({ name, className }: { name: string; className?: string }) => {
   const I = (Icons as any)[name] ?? Icons.Sparkles;
@@ -429,33 +430,9 @@ const Home = () => {
               <span className="eyebrow"><Icons.Star className="size-3.5 fill-current" /> Google Reviews</span>
               <h2 className="font-display text-3xl md:text-5xl font-bold mt-4 leading-tight">Verified reviews from <span className="text-gradient">real clients.</span></h2>
             </div>
-            <a href={SITE.google.profileUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 rounded-2xl border border-border bg-card px-5 py-3 hover-lift">
-              <div className="font-display font-bold text-2xl">{SITE.google.rating}</div>
-              <div>
-                <div className="flex text-accent">{Array.from({ length: 5 }).map((_, i) => <Icons.Star key={i} className="size-4 fill-current" />)}</div>
-                <div className="text-xs text-muted-foreground">Verified on Google</div>
-              </div>
-              <Icons.ArrowUpRight className="size-4 text-muted-foreground" />
-            </a>
+             <GoogleReviews/>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {reviews.map((r, i) => (
-              <div key={i} className="rounded-2xl border border-border bg-card p-6 hover-lift">
-                <div className="flex items-center justify-between">
-                  <div className="flex text-accent">{Array.from({ length: r.rating }).map((_, k) => <Icons.Star key={k} className="size-4 fill-current" />)}</div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Google</span>
-                </div>
-                <p className="text-sm text-foreground/85 mt-3">"{r.text}"</p>
-                <div className="mt-5 pt-4 border-t border-border">
-                  <div className="font-semibold text-sm">{r.name}</div>
-                  <div className="text-xs text-muted-foreground">{r.role}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-10 text-center">
-            <Button asChild variant="outline" size="lg"><a href={SITE.google.profileUrl} target="_blank" rel="noopener noreferrer">Read all Google reviews <Icons.ArrowUpRight className="size-4" /></a></Button>
-          </div>
+          
         </div>
       </section>
 
