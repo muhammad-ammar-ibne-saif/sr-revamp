@@ -30,8 +30,8 @@ export const SiteFooter = () => {
             <div className="flex items-center gap-2 pt-1">
               {[
                 { i: Instagram, href: "https://instagram.com/thesrinnovations", label: "Instagram" },
-                { i: Facebook, href: "#", label: "Facebook" },
-                { i: Linkedin, href: "#", label: "LinkedIn" },
+                { i: Facebook, href: "https://www.facebook.com/TheSRInnovations", label: "Facebook" },
+                { i: Linkedin, href: "https://www.linkedin.com/company/sr-web-innovations", label: "LinkedIn" },
                 { i: FaWhatsapp, href: SITE.whatsappLink, label: "WhatsApp" },
               ].map(({ i: I, href, label }) => (
                 <a
