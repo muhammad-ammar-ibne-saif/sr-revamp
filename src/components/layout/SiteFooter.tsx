@@ -21,7 +21,7 @@ export const SiteFooter = () => {
           {/* Col 1 , Brand */}
           <div className="lg:col-span-4 space-y-5">
             <Link to="/" className="flex items-center gap-3">
-              <img src={Logo} alt="SR Innovations" className="h-24 w-48 md:h-32 md:w-72" />
+              <img src={Logo} alt="SR Innovations" className=" md:h-32 md:w-72" />
               
             </Link>
             <p className="text-sm text-white/70 max-w-sm">
